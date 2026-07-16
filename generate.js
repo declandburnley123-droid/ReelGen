@@ -63,14 +63,14 @@ You MUST respond ONLY with a valid JSON object. No markdown, no code fences, no 
 
 Score readiness using this rubric: hook clarity 30 points, specificity 25, pacing 20, useful payoff 15, CTA fit 10.`;
 
-  const userPrompt = `Create a viral ${platformInstructions[platform]} script.
+  const userPrompt = `Create an engaging ${platformInstructions[platform]} script.
 
 Niche: ${niche}
 Style: ${styleLabels[style] || style}
 Tone: ${tone}
 ${customPrompt ? `Custom angle: ${customPrompt}` : ''}
 
-Make the hook impossible to scroll past. Write like a real creator who has gone viral, not a copywriter.`;
+Make the hook clear, specific, accurate, and interesting. Use natural spoken language rather than generic marketing copy.`;
 
   try {
     const response = await fetch('https://api.anthropic.com/v1/messages', {

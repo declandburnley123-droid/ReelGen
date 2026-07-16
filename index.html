@@ -475,13 +475,13 @@
   <div class="loading-panel" id="loadingPanel">
     <div class="big-spinner"></div>
     <div class="loading-title">GENERATING YOUR REEL</div>
-    <div class="loading-sub">Our AI is writing your viral script...</div>
+    <div class="loading-sub">Our AI is drafting your short-form script...</div>
     <div class="progress-steps" id="progressSteps">
       <div class="progress-step active" id="ps1"><div class="step-dot"></div> Analyzing niche & trends</div>
-      <div class="progress-step" id="ps2"><div class="step-dot"></div> Writing viral hook</div>
+      <div class="progress-step" id="ps2"><div class="step-dot"></div> Writing a strong hook</div>
       <div class="progress-step" id="ps3"><div class="step-dot"></div> Generating full script</div>
       <div class="progress-step" id="ps4"><div class="step-dot"></div> Adding captions & hashtags</div>
-      <div class="progress-step" id="ps5"><div class="step-dot"></div> Calculating virality score</div>
+      <div class="progress-step" id="ps5"><div class="step-dot"></div> Checking script readiness</div>
     </div>
   </div>
 
@@ -520,7 +520,7 @@
       <div class="content-output">
         <div class="output-block">
           <div class="output-block-header">
-            <span class="output-block-title">🎣 Viral Hook</span>
+            <span class="output-block-title">🎣 Opening Hook</span>
             <button class="copy-btn" onclick="copyBlock('hookContent', this)">COPY</button>
           </div>
           <div class="output-block-body" id="hookContent"></div>
@@ -763,7 +763,7 @@
 
   function copyAll() {
     const parts = [
-      '=== VIRAL HOOK ===\n' + document.getElementById('hookContent').innerText,
+      '=== OPENING HOOK ===\n' + document.getElementById('hookContent').innerText,
       '\n=== FULL SCRIPT ===\n' + document.getElementById('scriptContent').innerText,
       '\n=== CAPTION ===\n' + document.getElementById('captionContent').innerText,
       '\n=== HASHTAGS ===\n' + document.getElementById('hashtagContent').innerText,
@@ -777,7 +777,7 @@
       'NICHE: ' + selectedNiche.toUpperCase(),
       'STYLE: ' + selectedStyle,
       'PLATFORM: ' + selectedPlatform + '\n',
-      '=== VIRAL HOOK ===\n' + document.getElementById('hookContent').innerText,
+      '=== OPENING HOOK ===\n' + document.getElementById('hookContent').innerText,
       '\n=== FULL SCRIPT ===\n' + document.getElementById('scriptContent').innerText,
       '\n=== CAPTION ===\n' + document.getElementById('captionContent').innerText,
       '\n=== HASHTAGS ===\n' + document.getElementById('hashtagContent').innerText,
