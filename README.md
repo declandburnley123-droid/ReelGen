@@ -21,7 +21,7 @@ The service-first offer is intentional: it can validate demand and earn revenue 
 | `ANTHROPIC_MODEL` | Optional | Defaults to `claude-haiku-4-5-20251001` |
 | `PUBLIC_SITE_URL` | Checkout redirects | Production URL, no trailing slash |
 | `STRIPE_SECRET_KEY` | Paid checkout | Stripe restricted/secret key |
-| `STRIPE_CREATOR_PACK_PRICE_ID` | Paid checkout | One-time £19 GBP Price ID |
+| `STRIPE_CREATOR_PACK_PRICE_ID` | Optional override | Defaults to the configured one-time £19 GBP Price ID |
 | `LEGAL_DETAILS_CONFIRMED` | Paid checkout safety gate | Set to `true` only after the legal checklist below |
 
 Do not commit keys. If checkout is not configured, the page gives a contact fallback and accepts no payment.

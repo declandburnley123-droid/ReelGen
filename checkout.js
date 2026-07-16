@@ -1,4 +1,5 @@
 const TERMS_VERSION = '2026-07-16';
+const DEFAULT_CREATOR_PACK_PRICE_ID = 'price_1TtxfNRsicMGSP0Udp8fgNwV';
 
 function getSiteUrl(req) {
   if (process.env.PUBLIC_SITE_URL) {
@@ -27,9 +28,11 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
+  const creatorPackPriceId =
+    process.env.STRIPE_CREATOR_PACK_PRICE_ID || DEFAULT_CREATOR_PACK_PRICE_ID;
+
   if (
     !process.env.STRIPE_SECRET_KEY ||
-    !process.env.STRIPE_CREATOR_PACK_PRICE_ID ||
     process.env.LEGAL_DETAILS_CONFIRMED !== 'true'
   ) {
     return res.status(503).json({
@@ -45,7 +48,7 @@ export default async function handler(req, res) {
   const siteUrl = getSiteUrl(req);
   const params = new URLSearchParams({
     mode: 'payment',
-    'line_items[0][price]': process.env.STRIPE_CREATOR_PACK_PRICE_ID,
+    'line_items[0][price]': creatorPackPriceId,
     'line_items[0][quantity]': '1',
     customer_creation: 'always',
     billing_address_collection: 'required',
