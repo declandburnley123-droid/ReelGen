@@ -1,72 +1,61 @@
-# ReelGen — AI Reel Generator
+# ReelGen
 
-## Deploy to Vercel (Free) — Step by Step
+ReelGen is a free short-form script drafting tool plus a productized, human-reviewed Creator Pack. The launch offer is £19 once for ten scripts, one revision round and delivery within 48 hours.
 
-### 1. Install prerequisites
-- [Node.js](https://nodejs.org) (any recent version)
-- A free [Vercel account](https://vercel.com/signup)
-- A free [GitHub account](https://github.com) (optional but recommended)
+The service-first offer is intentional: it can validate demand and earn revenue without first building user accounts, subscriptions, entitlements or a large paid acquisition funnel.
 
----
+## Architecture
 
-### Option A: Deploy via GitHub (easiest long-term)
+- `index.html` — generator, honest product copy and Creator Pack checkout
+- `generate.js` — validated Vercel function calling Anthropic
+- `checkout.js` — Stripe-hosted one-time checkout with fulfilment questions
+- `legal.html` — terms, cancellation information and privacy notice
+- `vercel.json` — root-file routing for the static pages and functions
+- `LAUNCH.md` — practical launch and fulfilment workflow
 
-1. Go to [github.com/new](https://github.com/new) and create a new repository called `reelgen`
-2. Upload all files from this folder into the repo (drag & drop in the GitHub UI)
-3. Go to [vercel.com/new](https://vercel.com/new)
-4. Click **"Import Git Repository"** and select your `reelgen` repo
-5. Click **Deploy** — Vercel auto-detects everything
-6. After deploy, go to **Settings → Environment Variables**
-7. Add: `ANTHROPIC_API_KEY` = your key from [console.anthropic.com](https://console.anthropic.com)
-8. Click **Redeploy** — your site is live!
+## Required Vercel environment variables
 
----
+| Variable | Required for | Value |
+|---|---|---|
+| `ANTHROPIC_API_KEY` | Free generator | Anthropic API key |
+| `ANTHROPIC_MODEL` | Optional | Defaults to `claude-haiku-4-5-20251001` |
+| `PUBLIC_SITE_URL` | Checkout redirects | Production URL, no trailing slash |
+| `STRIPE_SECRET_KEY` | Paid checkout | Stripe restricted/secret key |
+| `STRIPE_CREATOR_PACK_PRICE_ID` | Optional override | Defaults to the configured one-time £19 GBP Price ID |
+| `LEGAL_DETAILS_CONFIRMED` | Paid checkout safety gate | Set to `true` only after the legal checklist below |
 
-### Option B: Deploy via Vercel CLI
+Do not commit keys. If checkout is not configured, the page gives a contact fallback and accepts no payment.
 
-```bash
-# Install Vercel CLI
-npm install -g vercel
+## Pre-sale legal checklist
 
-# From inside this project folder
-cd reelgen
-vercel
+The code deliberately keeps checkout closed until `LEGAL_DETAILS_CONFIRMED=true`. Before setting it:
 
-# Follow the prompts — say YES to everything
-# Then add your API key:
-vercel env add ANTHROPIC_API_KEY
-# Paste your key when prompted
+1. Confirm the operator's legal name and a geographical trading address.
+2. Add both to the Stripe public business profile and customer receipts.
+3. Replace the pre-launch notice and generic seller wording in `legal.html` with those confirmed details.
+4. Confirm the contact email is monitored.
+5. Review the terms/privacy text for the actual business; it is operational drafting, not legal advice.
+6. Configure the Stripe product as a **one-time** £19 GBP price, not recurring.
+7. Decide sole-trader/company status and meet applicable HMRC, ICO, tax and record-keeping duties.
 
-# Redeploy with the env var
-vercel --prod
+## Deploy
+
+Import this GitHub repository in Vercel or reconnect the existing project, add the required environment variables, and deploy. The old homepage URL returned 404 because the Vercel configuration expected nonexistent `public/` and `api/` directories; routing now matches the repository's actual root layout.
+
+After deployment verify:
+
+```text
+GET  /                 -> 200 and the ReelGen page
+GET  /legal.html       -> 200
+POST /api/generate     -> JSON script (with Anthropic configured)
+POST /api/checkout     -> Stripe URL (after every checkout variable is configured)
 ```
 
----
+## Data flow
 
-## Project Structure
+- Generator options and the optional prompt are sent to Anthropic. Inputs are allowlisted and custom text is capped at 500 characters.
+- Checkout is hosted by Stripe. ReelGen's server receives only a Checkout Session response, not card details.
+- Stripe collects brand, niche/audience and main platform to make paid orders fulfilment-ready.
+- Immediate-service consent and the accepted terms version are recorded in Stripe Checkout Session metadata.
 
-```
-reelgen/
-├── public/
-│   └── index.html      ← Frontend (the website)
-├── api/
-│   └── generate.js     ← Backend (serverless function, keeps API key secret)
-├── vercel.json         ← Vercel routing config
-└── README.md
-```
-
-## How it works
-
-- User fills out the form on the frontend
-- Frontend sends a POST to `/api/generate` (your own backend)
-- The backend (running on Vercel's servers) calls Anthropic with your secret API key
-- The result comes back to the user — API key never exposed
-
-## Getting an Anthropic API Key
-
-1. Go to [console.anthropic.com](https://console.anthropic.com)
-2. Sign up / log in
-3. Go to **API Keys** → **Create Key**
-4. Copy the key and add it to Vercel as `ANTHROPIC_API_KEY`
-
-Note: Anthropic gives $5 free credit to new accounts. Each reel generation costs roughly $0.002.
+AI output still requires human review. ReelGen does not claim or guarantee reach, engagement, followers or revenue.
