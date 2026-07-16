@@ -311,6 +311,35 @@
   .feature-title { font-weight: 700; font-size: 16px; margin-bottom: 8px; }
   .feature-desc { font-size: 14px; color: var(--muted); line-height: 1.6; }
 
+  .pricing { border-top: 1px solid var(--border); padding: 80px 24px; max-width: 960px; margin: 0 auto; }
+  .offer-card {
+    background: linear-gradient(145deg, rgba(255,60,60,0.1), var(--card) 45%);
+    border: 1px solid rgba(255,60,60,0.45); border-radius: 16px; padding: 36px;
+    display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center;
+  }
+  .offer-kicker { color: var(--accent); font: 700 11px 'Space Mono', monospace; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+  .offer-card h3 { font: 42px 'Bebas Neue', sans-serif; letter-spacing: 1px; margin-bottom: 12px; }
+  .offer-card p { color: var(--muted); line-height: 1.65; max-width: 560px; }
+  .offer-list { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 24px; margin-top: 22px; font-size: 14px; }
+  .offer-list li::before { content: '✓'; color: var(--green); margin-right: 8px; font-weight: 700; }
+  .offer-buy { min-width: 220px; text-align: center; }
+  .price { font: 56px 'Bebas Neue', sans-serif; line-height: 1; }
+  .price-note { color: var(--muted); font-size: 12px; margin: 7px 0 18px; }
+  .consent { display: flex; gap: 9px; text-align: left; color: var(--muted); font-size: 11px; line-height: 1.45; margin: 14px 0; }
+  .consent input { margin-top: 2px; accent-color: var(--accent); }
+  .checkout-status { min-height: 18px; color: #ff9f9f; font-size: 12px; line-height: 1.4; margin-top: 10px; }
+  .checkout-status.success { color: var(--green); }
+  .checkout-btn { width: 100%; justify-content: center; }
+  .proof-note { text-align: center; color: var(--muted); font-size: 13px; line-height: 1.6; margin: 22px auto 0; max-width: 680px; }
+  footer { border-top: 1px solid var(--border); padding: 30px 24px; color: var(--muted); font-size: 12px; }
+  .footer-inner { max-width: 960px; margin: 0 auto; display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+  footer a { color: var(--muted); margin-left: 18px; }
+  @media (max-width: 720px) {
+    .offer-card { grid-template-columns: 1fr; padding: 26px; }
+    .offer-list { grid-template-columns: 1fr; }
+    .offer-buy { min-width: 0; }
+  }
+
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: var(--dark); }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
@@ -321,27 +350,27 @@
 <nav>
   <div class="logo">REELGEN</div>
   <ul class="nav-links">
-    <li><a href="#">Generator</a></li>
-    <li><a href="#">Pricing</a></li>
-    <li><a href="#">Examples</a></li>
+    <li><a href="#generator">Generator</a></li>
+    <li><a href="#creator-pack">Creator Pack</a></li>
+    <li><a href="#why">How it works</a></li>
   </ul>
-  <button class="btn-nav">Start Free</button>
+  <button class="btn-nav" onclick="document.getElementById('generator').scrollIntoView({behavior:'smooth'})">Try it free</button>
 </nav>
 
 <section class="hero">
-  <div class="hero-badge">⚡ AI-Powered · 1080x1920 · Auto-Post Ready</div>
-  <h1>CREATE VIRAL<br><span>REELS IN SECONDS</span></h1>
-  <p>Pick your niche, choose a style, and our AI writes the script, hooks, captions, and hashtags. Fully formatted for TikTok, Reels & Shorts.</p>
+  <div class="hero-badge">⚡ Short-form scripts without the blank page</div>
+  <h1>TURN ONE IDEA INTO<br><span>A READY-TO-FILM SCRIPT</span></h1>
+  <p>Choose your niche, format and tone. ReelGen drafts a hook, full script, caption and focused hashtag set for TikTok, Reels or Shorts.</p>
 </section>
 
 <div class="stats-bar">
-  <div class="stat"><div class="stat-num">500M+</div><div class="stat-label">Views Generated</div></div>
-  <div class="stat"><div class="stat-num">13M+</div><div class="stat-label">Followers Built</div></div>
-  <div class="stat"><div class="stat-num">60K+</div><div class="stat-label">Creators</div></div>
-  <div class="stat"><div class="stat-num">4.9★</div><div class="stat-label">App Rating</div></div>
+  <div class="stat"><div class="stat-num">3</div><div class="stat-label">Platforms</div></div>
+  <div class="stat"><div class="stat-num">6</div><div class="stat-label">Script Formats</div></div>
+  <div class="stat"><div class="stat-num">4</div><div class="stat-label">Assets Per Draft</div></div>
+  <div class="stat"><div class="stat-num">£0</div><div class="stat-label">To Try</div></div>
 </div>
 
-<section class="generator-section">
+<section class="generator-section" id="generator">
   <div class="section-label">// Step-by-Step Creator</div>
   <div class="section-title">BUILD YOUR REEL</div>
 
@@ -433,7 +462,7 @@
   <div class="generate-card">
     <div class="generate-info">
       <h3>READY TO GENERATE</h3>
-      <p>Script · Hook · Captions · Hashtags · Virality Score — all in one shot</p>
+      <p>Script · Hook · Caption · Hashtags · Readiness score — all in one draft</p>
     </div>
     <button class="btn-generate" id="generateBtn" onclick="generateReel()">
       <span id="btnIcon">⚡</span>
@@ -476,14 +505,14 @@
         </div>
         <div style="margin-top:12px;" class="score-bar-wrap">
           <div class="score-bar-header">
-            <span class="score-label">Virality Score</span>
+            <span class="score-label">Script Readiness</span>
             <span class="score-val" id="scoreVal">--</span>
           </div>
           <div class="score-bar"><div class="score-fill" id="scoreFill"></div></div>
           <div class="score-tiers">
             <span class="score-tier">LOW</span>
             <span class="score-tier">MEDIUM</span>
-            <span class="score-tier">VIRAL</span>
+            <span class="score-tier">READY</span>
           </div>
         </div>
       </div>
@@ -527,19 +556,19 @@
   </div>
 </section>
 
-<section class="features">
+<section class="features" id="why">
   <div class="section-label">// Why ReelGen</div>
-  <div class="section-title">BUILT FOR VIRALITY</div>
+  <div class="section-title">BUILT TO GET YOU FILMING</div>
   <div class="features-grid">
     <div class="feature-card">
       <span class="feature-icon">🎣</span>
-      <div class="feature-title">Viral Hook Formulas</div>
-      <div class="feature-desc">Our AI uses proven hook patterns from 500M+ views of top-performing content to open every reel with maximum retention.</div>
+      <div class="feature-title">Clear Hook Structures</div>
+      <div class="feature-desc">Start with a question, contrast, useful promise or reveal that fits the idea instead of relying on vague clickbait.</div>
     </div>
     <div class="feature-card">
       <span class="feature-icon">⚡</span>
-      <div class="feature-title">10-Second Generation</div>
-      <div class="feature-desc">Script, captions, hashtags, and a virality score — all generated in under 10 seconds. No editing skills required.</div>
+      <div class="feature-title">One Complete Draft</div>
+      <div class="feature-desc">Get a script, caption, hashtags and filming cues together. Generation speed depends on demand and model availability.</div>
     </div>
     <div class="feature-card">
       <span class="feature-icon">📱</span>
@@ -549,20 +578,64 @@
     <div class="feature-card">
       <span class="feature-icon">🏷️</span>
       <div class="feature-title">Smart Hashtags</div>
-      <div class="feature-desc">Auto-generated hashtag sets blending broad reach tags with niche discovery tags to maximize your content's distribution.</div>
+      <div class="feature-desc">Get a focused set of relevant tags to edit before posting. Hashtags and scripts do not guarantee reach or results.</div>
     </div>
     <div class="feature-card">
       <span class="feature-icon">🔁</span>
-      <div class="feature-title">Series Mode</div>
-      <div class="feature-desc">Set a series theme and get consistent, on-brand content generated daily — so you never miss a posting day.</div>
+      <div class="feature-title">Six Repeatable Formats</div>
+      <div class="feature-desc">Use hook-and-reveal, lists, stories, explainers, transformations and POV scripts to vary your content calendar.</div>
     </div>
     <div class="feature-card">
       <span class="feature-icon">📊</span>
-      <div class="feature-title">Virality Score</div>
-      <div class="feature-desc">Every reel gets scored based on hook strength, pacing, trend alignment, and niche demand so you post with confidence.</div>
+      <div class="feature-title">Readiness Score</div>
+      <div class="feature-desc">A drafting aid based on hook clarity, specificity, pacing, payoff and CTA fit—not a prediction of views.</div>
     </div>
   </div>
 </section>
+
+<section class="pricing" id="creator-pack">
+  <div class="section-label">// Founding Offer</div>
+  <div class="section-title">WANT THE SCRIPTS DONE WITH YOU?</div>
+  <div class="offer-card">
+    <div>
+      <div class="offer-kicker">Limited launch offer</div>
+      <h3>THE CREATOR PACK</h3>
+      <p>Ten tailored short-form scripts drafted for your brand and reviewed for clarity, pacing and factual claims before delivery.</p>
+      <ul class="offer-list">
+        <li>10 original scripts</li>
+        <li>Hooks, captions and CTAs</li>
+        <li>One revision round</li>
+        <li>Delivered within 48 hours</li>
+        <li>Commercial use included</li>
+        <li>No subscription</li>
+      </ul>
+    </div>
+    <div class="offer-buy">
+      <div class="price">£19</div>
+      <div class="price-note">one-off founding price</div>
+      <label class="consent">
+        <input type="checkbox" id="termsConsent">
+        <span>I accept the <a href="/legal.html#terms">terms</a> and request work to begin during the 14-day cancellation period.</span>
+      </label>
+      <label class="consent">
+        <input type="checkbox" id="serviceConsent">
+        <span>I understand the cancellation right ends once the service is fully performed; if I cancel earlier, I may owe for work already supplied.</span>
+      </label>
+      <button class="btn-generate checkout-btn" id="checkoutBtn" onclick="startCheckout()">
+        <span id="checkoutText">Get the Creator Pack</span>
+      </button>
+      <div class="checkout-status" id="checkoutStatus" aria-live="polite"></div>
+    </div>
+  </div>
+  <p class="proof-note">No one can guarantee views or follower growth. ReelGen sells writing and review work; publishing decisions and platform results remain yours.</p>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <span>© 2026 ReelGen · Contact: <a href="mailto:declandburnley123@gmail.com">declandburnley123@gmail.com</a></span>
+    <span><a href="/legal.html#terms">Terms</a><a href="/legal.html#privacy">Privacy</a><a href="/legal.html#cancellations">Cancellations</a></span>
+  </div>
+</footer>
 
 <script>
   let selectedNiche = 'motivational';
@@ -670,7 +743,7 @@
     document.getElementById('phoneTag').textContent = selectedNiche.toUpperCase();
     const caps = data.captions_preview || [data.hook.split(' ').slice(0,5).join(' ') + '...'];
     document.getElementById('phoneCaptions').innerHTML = caps.map(c => `<div><span class="caption-line">${escHtml(c)}</span></div>`).join('');
-    const score = Math.round(Math.min(98, Math.max(60, data.virality_score || 80)));
+    const score = Math.round(Math.min(100, Math.max(1, data.readiness_score || 70)));
     document.getElementById('scoreVal').textContent = score;
     setTimeout(() => { document.getElementById('scoreFill').style.width = score + '%'; }, 200);
     document.getElementById('outputSection').classList.add('visible');
@@ -713,6 +786,48 @@
     a.href = URL.createObjectURL(new Blob([content], { type: 'text/plain' }));
     a.download = 'reelgen-script.txt';
     a.click();
+    URL.revokeObjectURL(a.href);
+  }
+
+  async function startCheckout() {
+    const status = document.getElementById('checkoutStatus');
+    const button = document.getElementById('checkoutBtn');
+    const termsAccepted = document.getElementById('termsConsent').checked;
+    const immediateServiceConsent = document.getElementById('serviceConsent').checked;
+
+    status.classList.remove('success');
+    if (!termsAccepted || !immediateServiceConsent) {
+      status.textContent = 'Please tick both boxes before continuing.';
+      return;
+    }
+
+    button.disabled = true;
+    document.getElementById('checkoutText').textContent = 'Opening secure checkout...';
+    status.textContent = '';
+
+    try {
+      const response = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ termsAccepted, immediateServiceConsent })
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || 'Checkout is unavailable.');
+      window.location.assign(data.url);
+    } catch (error) {
+      status.textContent = error.message;
+      button.disabled = false;
+      document.getElementById('checkoutText').textContent = 'Get the Creator Pack';
+    }
+  }
+
+  const checkoutState = new URLSearchParams(window.location.search).get('checkout');
+  if (checkoutState === 'success') {
+    const status = document.getElementById('checkoutStatus');
+    status.textContent = 'Payment received. Check your email for the receipt; delivery work can now begin.';
+    status.classList.add('success');
+  } else if (checkoutState === 'cancelled') {
+    document.getElementById('checkoutStatus').textContent = 'Checkout cancelled—nothing was charged.';
   }
 </script>
 </body>

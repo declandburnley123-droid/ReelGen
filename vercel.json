@@ -1,11 +1,15 @@
 {
   "version": 2,
   "builds": [
-    { "src": "public/**", "use": "@vercel/static" },
-    { "src": "api/*.js", "use": "@vercel/node" }
+    { "src": "index.html", "use": "@vercel/static" },
+    { "src": "legal.html", "use": "@vercel/static" },
+    { "src": "generate.js", "use": "@vercel/node" },
+    { "src": "checkout.js", "use": "@vercel/node" }
   ],
   "routes": [
-    { "src": "/api/(.*)", "dest": "/api/$1" },
-    { "src": "/(.*)", "dest": "/public/$1" }
+    { "src": "/api/generate", "dest": "/generate.js" },
+    { "src": "/api/checkout", "dest": "/checkout.js" },
+    { "src": "/legal.html", "dest": "/legal.html" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
